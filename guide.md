@@ -78,6 +78,10 @@ You can go to the base url and see if there is a red Hello showing.
 
 Some questions we've stumbled across - and its solutions.
 
+### Returning data from Flask view
+- [Return as json](https://stackoverflow.com/questions/13081532/return-json-response-from-flask-view)
+
+
 ### Serving static/template files with `flask`
 [Link](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask).
 
