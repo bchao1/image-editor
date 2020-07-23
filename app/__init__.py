@@ -12,6 +12,8 @@ from .api import api as api_blueprint
 from .errors import add_error_handlers
 from .utils import serve_pil_image
 
+from .imaging.filters import sobel_filter, canny_edge_detector, to_gray
+
 def create_app():
     app = Flask(__name__, static_url_path='', 
         static_folder='web/static', template_folder='web/templates'
@@ -41,4 +43,5 @@ def recieve_file():
     print('File extension', file_extention)
     with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
+        img = to_gray(img)
         return serve_pil_image(img, file_extention), 200

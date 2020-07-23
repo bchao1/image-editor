@@ -12,6 +12,9 @@ def serve_pil_image(pil_img, ext):
         A flask send_file response.
     """
     img_io = BytesIO()
+    ext = ext.lower()  # normalize extension
+    if ext == 'jpg':
+        ext = 'jpeg'
     pil_img.save(img_io, ext, quality = 75) #  default quality
     img_io.seek(0) #  go to head of io file
     return base64.b64encode(img_io.getvalue())
