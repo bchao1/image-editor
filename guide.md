@@ -1,4 +1,6 @@
 # Guide
+Clone this repo first, and `cd image-editor`.
+
 ## Project id
 
 ```
@@ -37,8 +39,8 @@ gunicorn --bind=:8080 app:application --reload
 You can set port number to whatever you like.
 
 ### Test endpoint
-- When using Google Cloud Shell, go to (for example) `https://8080-dot-13002410-dot-devshell.appspot.com/api/v1/hello/world`. 
-- When using your local computer, go to `http://127.0.0.1:8080/api/v1/hello/world`.
+- When using Google Cloud Shell, go to (for example) `https://8080-dot-13002410-dot-devshell.appspot.com/api/v1/hello/world` (Click on the Web preview button you've used when using the portfolio to fire up a webpage). 
+- When using your local computer, go to `http://0.0.0.0:8080/api/v1/hello/world`.
 
 and see if there is a `{hello:world}` json string.
 
