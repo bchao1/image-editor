@@ -34,4 +34,11 @@ In the app folder, type
 # set port to 8080
 gunicorn --bind=:8080 app:application --reload
 ```
+You can set port number to whatever you like.
+
+### Test endpoint
+- When using Google Cloud Shell, go to (for example) `https://8080-dot-13002410-dot-devshell.appspot.com/api/v1/hello/world`. 
+- When using your local computer, go to `http://127.0.0.1:8080/api/v1/hello/world`.
+
+and see if there is a `{hello:world}` json string.
 
