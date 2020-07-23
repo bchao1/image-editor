@@ -56,7 +56,7 @@ Any css, js, html files are stored in the `app/web` folders. The directory struc
             - ...
     - __init__.py # main flask app
 ```
- 
+You can go to the base url and see if there is a red Hello showing.
 ## Flask Refs
 
 ### Serving static/template files
