@@ -80,6 +80,7 @@ Some questions we've stumbled across - and its solutions.
 
 ### Returning data from Flask view
 - [Return as json](https://stackoverflow.com/questions/13081532/return-json-response-from-flask-view)
+- [Returning images](https://stackoverflow.com/questions/7877282/how-to-send-image-generated-by-pil-to-browser)
 
 
 ### Serving static/template files with `flask`
