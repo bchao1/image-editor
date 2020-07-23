@@ -70,10 +70,16 @@ and see if there is a `{hello:world}` json string.
         - feature2/
         - ...
     - __init__.py # main flask app (server)
+    - data/ # cached data from client
 ```
 You can go to the base url and see if there is a red Hello showing.
-## Flask Refs
 
-### Serving static/template files
+## References
+
+### Serving static/template files with `flask`
 [Link](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask).
+
+### Uploading files using `ajax` and `jQuery`
+[Link](https://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask)
+
 

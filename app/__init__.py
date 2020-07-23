@@ -3,7 +3,7 @@ Primary Flask app
 
 """
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_cors import CORS
 
 from .api import api as api_blueprint
@@ -22,4 +22,10 @@ application = create_app()
 
 @application.route("/")
 def hello():
+    return render_template('index.html')
+
+@application.route("/upload", methods=["GET", "POST"])
+def upload_file():
+    uploaded_file = request.files.get('file')
+    uploaded_file.save(os.path.join('data', uploaded_file.filename))
     return render_template('index.html')
