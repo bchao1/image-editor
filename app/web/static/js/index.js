@@ -2,7 +2,7 @@
 $(function() {
     $('#upload-file-btn').click(function() {
         var form_data = new FormData($('#upload-file')[0]);
-        var input_file = document.getElementById("upload-file-input").files[0];
+        var mimetype = document.getElementById("upload-file-input").files[0].type;
         $.ajax({
             type: 'POST',
             url: '/upload',
@@ -11,12 +11,8 @@ $(function() {
             cache: false,
             processData: false,
             success: function(data) {
-                var reader = new FileReader();
-                reader.onload = e => {
-                    document.getElementById("result-preview").src = e.target.result;
-                };
-                console.log('filetype', input_file.type);
-                reader.readAsDataURL(new Blob([data], { type: input_file.type }));
+                document.getElementById("result-preview").src = `data:${mimetype};base64,` + data;
+                console.log(data);
             },
         });
     });
