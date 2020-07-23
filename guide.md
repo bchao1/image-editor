@@ -76,10 +76,19 @@ You can go to the base url and see if there is a red Hello showing.
 
 ## References
 
+Some questions we've stumbled across - and its solutions.
+
 ### Serving static/template files with `flask`
 [Link](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask).
 
 ### Uploading files using `ajax` and `jQuery`
 [Link](https://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask)
 
+Note: to use `jQuery`, you need to add a `script` reference to the web-hosted jQuery library in the html file.
+```
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+```
+
+### Placing `<script>`
+[This link](https://developer.yahoo.com/performance/rules.html#js_bottom) suggests putting `script` tags at the bottom of the html (just before closing `body`) for performance boost (but still varies case by case).
 

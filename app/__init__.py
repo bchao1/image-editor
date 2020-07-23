@@ -25,7 +25,7 @@ def hello():
     return render_template('index.html')
 
 @application.route("/upload", methods=["GET", "POST"])
-def upload_file():
+def recieve_file():
     uploaded_file = request.files.get('file')
     uploaded_file.save(os.path.join('data', uploaded_file.filename))
     return render_template('index.html')
