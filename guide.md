@@ -42,3 +42,23 @@ You can set port number to whatever you like.
 
 and see if there is a `{hello:world}` json string.
 
+### Client-side files
+Any css, js, html files are stored in the `app/web` folders. The directory structure is
+```bash
+- app
+    - web
+        - static
+            - js
+            - css
+            -fonts
+        - templates # for html files
+            - index.html
+            - ...
+    - __init__.py # main flask app
+```
+ 
+## Flask Refs
+
+### Serving static/template files
+[Link](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask).
+
