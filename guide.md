@@ -50,8 +50,11 @@ Modify the port number in the `start.sh` file as you wish.
 
 and see if there is a `{hello:world}` json string.
 
-### Client-side files
-Any css, js, html files are stored in the `app/web` folders. The directory structure is
+## Project Structure
+- `app/web`: any frontend (css, js, html files)
+- `app/imaging`: any image processing features (backend)
+- `__init__.py`: main server file (backend)
+
 ```bash
 - app
     - web
@@ -62,7 +65,11 @@ Any css, js, html files are stored in the `app/web` folders. The directory struc
         - templates # for html files
             - index.html
             - ...
-    - __init__.py # main flask app
+    - imaging
+        - feature1/
+        - feature2/
+        - ...
+    - __init__.py # main flask app (server)
 ```
 You can go to the base url and see if there is a red Hello showing.
 ## Flask Refs
