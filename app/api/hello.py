@@ -8,5 +8,5 @@ from . import api
 
 
 @api.route('/hello/<name>')
-def hellow(name):
+def hello(name):
     return jsonify(dict(hello=name))
