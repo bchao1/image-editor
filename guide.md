@@ -37,6 +37,12 @@ In the app folder, type
 gunicorn --bind=:8080 app:application --reload
 ```
 You can set port number to whatever you like.
+   
+Or, simply run
+```
+./start.sh
+```
+Modify the port number in the `start.sh` file as you wish.
 
 ### Test endpoint
 - When using Google Cloud Shell, go to (for example) `https://8080-dot-13002410-dot-devshell.appspot.com/api/v1/hello/world` (Click on the Web preview button you've used when using the portfolio to fire up a webpage). 
