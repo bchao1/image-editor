@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cool Image Editor - Image Stitching</title>
+    <link rel="stylesheet" type="text/css" href="/css/stitch-page.css">
+</head>
+<body>
+    <div>
+        <a href="index.html">Back to home</a>
+        <form id="upload-file" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <label for="file">Select a file</label>
+                <input id="upload-file-input" name="file" type="file" multiple>
+            </fieldset>
+            <fieldset>
+                <button id="upload-file-btn" type="button">Upload</button>
+            </fieldset>
+        </form>
+        <div id="preview-block">
+        </div> 
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/stitch-page.js"></script>
+</body>
+</html>

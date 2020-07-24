@@ -26,8 +26,13 @@ def create_app():
 application = create_app()
 
 @application.route("/")
-def index():
+@application.route("/index.html")
+def index_page():
     return render_template('index.html')
+
+@application.route("/stitch.html")
+def stitch_page():
+    return render_template('stitch.html')
 
 @application.route("/upload", methods=["GET", "POST"])
 def recieve_file():
@@ -36,12 +41,13 @@ def recieve_file():
     Returns:
         Response consisting of the processed image file and status code.
     """
-
+    print(request.files)
     uploaded_file = request.files.get('file')
-    file_extention = uploaded_file.filename.split('.')[1]  # get file extension
+    file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)
     with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
         img = to_gray(img)
+        
         return serve_pil_image(img, file_extention), 200
