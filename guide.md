@@ -101,6 +101,9 @@ Note: to use `jQuery`, you need to add a `script` reference to the web-hosted jQ
 ### Placing `<script>`
 [This link](https://developer.yahoo.com/performance/rules.html#js_bottom) suggests putting `script` tags at the bottom of the html (just before closing `body`) for performance boost (but still varies case by case).
 
+### `FileReader` as `async`
+- [Link 1](https://simon-schraeder.de/posts/filereader-async/)
+
 ### Drag-and-Drop
 [Link](https://pjchender.blogspot.com/2017/08/html5-drag-and-drop-api.html)
 

@@ -1,17 +1,40 @@
 const previewImagesBlock = document.getElementById('preview-block');
 
+// js drag and drop
+var draggedBlock = null;
+
+const dragStart = e => {
+    draggedBlock = e.target;
+}
+
+const dropped = e => {
+    cancelDefault(e);
+    var targetBlock = e.target;
+    $(draggedBlock).insertBefore(targetBlock);
+}
+
+const cancelDefault = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
+
 // Create image block
 const createImagePreviewBlock = (id, src)=> {
-    let div = document.createElement('div');
-    div.className = 'preview-image-div';
 
     let img = document.createElement('img');
     img.id = `preview-image-${id}`;
     img.alt = "uploaded image";
     img.src = src;
+    img.className = "preview-image";
 
-    div.appendChild(img);
-    return div;
+    img.setAttribute("draggable", true);
+    img.addEventListener('dragstart', dragStart);
+    img.addEventListener('drop', dropped);
+    img.addEventListener('dragenter', cancelDefault);
+    img.addEventListener('dragover', cancelDefault);
+
+    return img;
 }
 
 // clear preview images 
@@ -21,12 +44,21 @@ const clearImagePreviewBlocks = () => {
     }
 }
 
+// Return the image file orderings after shuffle using drag drop
+const getImageBlockOrdering = () => {
+    let blocks = document.getElementsByClassName('preview-image');
+    let blockIds = Array.from(blocks).map(elem => parseInt(elem.id.split('-').pop()));
+    return blockIds;
+}
+
 // jQuery + ajax upload file
 $(function() {
     $('#upload-file-btn').click(function() {
         var form_data = new FormData($('#upload-file')[0]);
         var mimetype = document.getElementById("upload-file-input").files[0].type;
         console.log(mimetype);
+        let ordering = getImageBlockOrdering();
+        form_data.append('order', ordering);
         $.ajax({
             type: 'POST',
             url: '/upload',
@@ -42,7 +74,7 @@ $(function() {
     });
 });
 
-// read (single) image as data url, and set preview image source
+// read multiple image as data urls, and set preview image source
 const readDataUrl = input => {
     if(input.files && input.files[0]){
         console.log(input.files);

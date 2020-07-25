@@ -41,12 +41,19 @@ def recieve_file():
     Returns:
         Response consisting of the processed image file and status code.
     """
-    print(request.files)
-    uploaded_file = request.files.get('file')
-    file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
-    print('File received', uploaded_file.filename)
+    
+    uploaded_files = request.files.getlist('file')  # get list of files uploaded
+
+    file_ordering = request.values.get('order').split(',')
+    file_ordering = [int(x) for x in file_ordering]
+
+    files = [uploaded_files[i] for i in file_ordering]
+
+    img_file = files[0]
+    file_extention = img_file.filename.split('.')[-1]  # get file extension
+    print('File received', img_file.filename)
     print('File extension', file_extention)
-    with Image.open(uploaded_file.stream) as img:
+    with Image.open(img_file.stream) as img:
         # process PIL image (plugin processing functions here)
         img = to_gray(img)
         
