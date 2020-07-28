@@ -1,3 +1,26 @@
+const previewImagesBlock = document.getElementById('preview-block');
+
+// Create image block
+const createImagePreviewBlock = (id, src)=> {
+    let div = document.createElement('div');
+    div.className = 'preview-image-div';
+
+    let img = document.createElement('img');
+    img.id = `preview-image-${id}`;
+    img.alt = "uploaded image";
+    img.src = src;
+
+    div.appendChild(img);
+    return div;
+}
+
+// clear preview images 
+const clearImagePreviewBlocks = () => {
+    while(previewImagesBlock.firstChild){
+        previewImagesBlock.removeChild(previewImagesBlock.lastChild);
+    }
+}
+
 // jQuery + ajax upload file
 $(function() {
     $('#upload-file-btn').click(function() {
@@ -23,11 +46,14 @@ $(function() {
 const readDataUrl = input => {
     if(input.files && input.files[0]){
         console.log(input.files);
-        var reader = new FileReader();
-        reader.onload = e => {
-            document.getElementById("upload-preview").src = e.target.result;
+        for(let i = 0; i < input.files.length; ++i){
+            var reader = new FileReader();
+            reader.onload = e => {
+                let div = createImagePreviewBlock(i, e.target.result);
+                previewImagesBlock.appendChild(div);
+            }
+            reader.readAsDataURL(input.files[i]);
         }
-        reader.readAsDataURL(input.files[0]);
     }
 }
 
@@ -35,6 +61,7 @@ const readDataUrl = input => {
 $(function(){
     $("#upload-file-input").change(function(){
         console.log("input file change");
+        clearImagePreviewBlocks();
         readDataUrl(this);
     });
 })

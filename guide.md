@@ -78,9 +78,18 @@ You can go to the base url and see if there is a red Hello showing.
 
 Some questions we've stumbled across - and its solutions.
 
+## Flask
+### Returning data from Flask view
+- [Return as json](https://stackoverflow.com/questions/13081532/return-json-response-from-flask-view)
+- [Returning images](https://stackoverflow.com/questions/7877282/how-to-send-image-generated-by-pil-to-browser)
+
 ### Serving static/template files with `flask`
 [Link](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask).
 
+### Multiple routes for view function
+[Link](https://stackoverflow.com/questions/17285826/flask-redirecting-multiple-routes)
+
+## Javascript
 ### Uploading files using `ajax` and `jQuery`
 [Link](https://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask)
 
@@ -91,4 +100,7 @@ Note: to use `jQuery`, you need to add a `script` reference to the web-hosted jQ
 
 ### Placing `<script>`
 [This link](https://developer.yahoo.com/performance/rules.html#js_bottom) suggests putting `script` tags at the bottom of the html (just before closing `body`) for performance boost (but still varies case by case).
+
+### Drag-and-Drop
+[Link](https://pjchender.blogspot.com/2017/08/html5-drag-and-drop-api.html)
 
