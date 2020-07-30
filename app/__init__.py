@@ -13,6 +13,7 @@ from .errors import add_error_handlers
 from .utils import serve_pil_image
 
 from .imaging.filters import filter_dict
+from .imaging.enhance import enhance_dict
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
@@ -72,13 +73,18 @@ def recieve_single_file():
     print(request.files)
     uploaded_file = request.files.get('file')
     image_op = request.values.get('op')
-    print(image_op)
+    op_magnitude = float(request.values.get('mag'))
+    print(image_op, op_magnitude)
     file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)
     with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
-        f = filter_dict[image_op]
-        img = f(img)
+        if "filter" in image_op:
+            f = filter_dict[image_op]
+            img = f(img)
+        elif "enhance" in image_op:
+            f = enhance_dict[image_op]
+            img = f(img, op_magnitude)
         
         return serve_pil_image(img, file_extention), 200

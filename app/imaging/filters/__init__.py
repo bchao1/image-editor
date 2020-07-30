@@ -39,9 +39,9 @@ def two_color(img):
     return Image.fromarray(img.astype(np.uint8))
 
 filter_dict = {
-    'grayscale': to_gray,
-    'black-white': binarize,
-    'two-color': two_color,
-    'canny': canny_edge_detector,
-    'sobel': sobel_filter
+    'filter-grayscale': to_gray,
+    'filter-black-white': binarize,
+    'filter-two-color': two_color,
+    'filter-canny': canny_edge_detector,
+    'filter-sobel': sobel_filter
 }

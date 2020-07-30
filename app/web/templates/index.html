@@ -19,12 +19,20 @@
         </form>
         <div id="dropdown-wrapper">
             <select id="image-ops">
-                <option value="grayscale" selected="selected">Grayscale</option>
-                <option value="black-white" >Black and White</option>
-                <option value="two-color">Two Colors</option>
-                <option value="canny">Canny Edge Detector</option>
-                <option value="sobel">Sobel Filter</option>
+                <option value="filter-grayscale" selected="selected">Grayscale</option>
+                <option value="filter-black-white" >Black and White</option>
+                <option value="filter-two-color">Two Colors</option>
+                <option value="filter-canny">Canny Edge Detector</option>
+                <option value="filter-sobel">Sobel Filter</option>
+                <option value="enhance-brightness">Enhance Brightness</option>
+                <option value="enhance-contrast">Enhance Contrast</option>
+                <option value="enhance-sharpness">Enhance Sharpness</option>
+                <option value="enhance-color">Enhance Color</option>
             </select>
+            <div class="slider-container">
+                <input type="range" min="0" max="100" value="50" id="slider">
+                <div id="slider-output"></div>
+            </div>
         </div>
         
         <div id="preview-block">
