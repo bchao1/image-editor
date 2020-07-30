@@ -3,6 +3,7 @@
 <head>
     <title>Cool Image Editor</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -10,18 +11,22 @@
 <body>
     <div>
         <!--<a href="stitch.html">Image Stitching</a>-->
+        <h1 id="title">Title here</h1>
         <form id="upload-file" method="post" enctype="multipart/form-data">
             <label for="file">Select a file</label>
             <input id="upload-file-input" name="file" type="file">
-            <button id="upload-file-btn" type="button">Upload</button>
+            <button id="upload-file-btn" type="button">Process</button>
         </form>
-        <select id="image-ops">
-            <option value="grayscale" selected="selected">Grayscale</option>
-            <option value="black-white" >Black and White</option>
-            <option value="two-color">Two Colors</option>
-            <option value="canny">Canny Edge Detector</option>
-            <option value="sobel">Sobel Filter</option>
-        </select>
+        <div id="dropdown-wrapper">
+            <select id="image-ops">
+                <option value="grayscale" selected="selected">Grayscale</option>
+                <option value="black-white" >Black and White</option>
+                <option value="two-color">Two Colors</option>
+                <option value="canny">Canny Edge Detector</option>
+                <option value="sobel">Sobel Filter</option>
+            </select>
+        </div>
+        
         <div id="preview-block">
             <div class="preview-image-div">
                 <img id="upload-preview" src="#" alt="uploaded image">
