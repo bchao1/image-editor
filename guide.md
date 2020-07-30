@@ -89,6 +89,9 @@ Some questions we've stumbled across - and its solutions.
 ### Multiple routes for view function
 [Link](https://stackoverflow.com/questions/17285826/flask-redirecting-multiple-routes)
 
+### Receving data
+[Link](https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request)
+
 ## Javascript
 ### Uploading files using `ajax` and `jQuery`
 [Link](https://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask)

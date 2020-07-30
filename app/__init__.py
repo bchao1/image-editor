@@ -53,6 +53,7 @@ def recieve_file():
     file_extention = img_file.filename.split('.')[-1]  # get file extension
     print('File received', img_file.filename)
     print('File extension', file_extention)
+    
     with Image.open(img_file.stream) as img:
         # process PIL image (plugin processing functions here)
         img = to_gray(img)
