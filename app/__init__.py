@@ -35,7 +35,7 @@ def index_page():
 def stitch_page():
     return render_template('stitch.html')
 
-@application.route("/upload_multiple", methods=["GET", "POST"])
+@application.route("/uploadmultiple", methods=["GET", "POST"])
 def recieve_multiple_files():
     """ Recieve uploaded files from client.
 
@@ -61,7 +61,7 @@ def recieve_multiple_files():
         
         return serve_pil_image(img, file_extention), 200
 
-@application.route("/upload_single", methods=["GET", "POST"])
+@application.route("/uploadsingle", methods=["GET", "POST"])
 def recieve_single_file():
     """ Recieve single uploaded file from client
 

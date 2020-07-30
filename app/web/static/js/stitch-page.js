@@ -61,7 +61,7 @@ $(function() {
         form_data.append('order', ordering);
         $.ajax({
             type: 'POST',
-            url: '/upload',
+            url: '/uploadmultiple',
             data: form_data,
             contentType: false,
             cache: false,
