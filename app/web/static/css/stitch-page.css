@@ -5,12 +5,7 @@ body, html
     padding: 0;
 }
 
-.preview-image-div
-{
-    height: 100%;
-}
-
-.preview-image-div img 
+.preview-image
 {
     height: 100%;
 }
@@ -18,10 +13,11 @@ body, html
 #preview-block
 {
     width: 80%;
-    height: 100px;
-    margin: 0 auto;
+    height: 25vh;
     display: flex;
+    margin: 0 auto;
     /*justify-content: space-between;*/
     background-color: yellow;
     overflow: scroll;
+    list-style: none;
 }
