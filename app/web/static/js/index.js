@@ -4,6 +4,10 @@ $(function() {
         var form_data = new FormData($('#upload-file')[0]);
         var mimetype = document.getElementById("upload-file-input").files[0].type;
         console.log(mimetype);
+        var imageOps = document.getElementById('image-ops');
+        var selected_op = imageOps.options[imageOps.selectedIndex].value;
+        console.log(selected_op);
+        form_data.append('op', selected_op);
         $.ajax({
             type: 'POST',
             url: '/uploadsingle',

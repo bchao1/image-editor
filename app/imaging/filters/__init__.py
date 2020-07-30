@@ -1,8 +1,14 @@
 from PIL import Image
 import numpy as np 
 from scipy import ndimage
-from skimage import feature
+from skimage import feature, filters
 
+
+def binarize(img):
+    thresh = 127 # threshold to binarize
+    fn = lambda pixel: 255 if pixel > thresh else 0
+    bin_img = img.convert('L').point(fn, mode='1')
+    return bin_img 
 
 def to_gray(img):
     gray_img = img.convert('L')
@@ -11,8 +17,8 @@ def to_gray(img):
 def sobel_filter(img):
     gray_img = to_gray(img)  # convert to grayscale
     np_img = np.asarray(gray_img)  # convert to numpy array 
-    edge_img = ndimage.sobel(np_img)  # perform sobel filter
-    return Image.fromarray(edge_img.astype(np.uint8))
+    edge_img = filters.sobel(np_img)  # perform sobel filter
+    return Image.fromarray((edge_img * 255).astype(np.uint8))
 
 def canny_edge_detector(img):
     gray_img = to_gray(img) # convert to grayscale
@@ -20,4 +26,22 @@ def canny_edge_detector(img):
     edge_img = feature.canny(np_img).astype(np.int) * 255 # perform canny edge detection
     return Image.fromarray(edge_img.astype(np.uint8))
 
+def two_color(img):
+    fmask = np.asarray(binarize(img)).astype(np.int)
+    bmask = 1 - fmask
 
+    c1 = np.dstack([np.full_like(fmask, np.random.random()*255) for _ in range(3)]).astype(np.uint8)
+    c2 = 255 - c1
+    fmask = np.dstack([fmask] * 3)
+    bmask = np.dstack([bmask] * 3)
+
+    img = c1 * fmask + c2 * bmask
+    return Image.fromarray(img.astype(np.uint8))
+
+filter_dict = {
+    'grayscale': to_gray,
+    'black-white': binarize,
+    'two-color': two_color,
+    'canny': canny_edge_detector,
+    'sobel': sobel_filter
+}
