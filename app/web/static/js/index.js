@@ -6,7 +6,7 @@ $(function() {
         console.log(mimetype);
         $.ajax({
             type: 'POST',
-            url: '/upload',
+            url: '/upload_single',
             data: form_data,
             contentType: false,
             cache: false,

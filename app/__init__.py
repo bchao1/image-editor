@@ -24,6 +24,7 @@ def create_app():
     return app
 
 application = create_app()
+application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @application.route("/")
 @application.route("/index.html")
@@ -34,8 +35,8 @@ def index_page():
 def stitch_page():
     return render_template('stitch.html')
 
-@application.route("/upload", methods=["GET", "POST"])
-def recieve_file():
+@application.route("/upload_multiple", methods=["GET", "POST"])
+def recieve_multiple_files():
     """ Recieve uploaded files from client.
 
     Returns:
@@ -55,6 +56,25 @@ def recieve_file():
     print('File extension', file_extention)
     
     with Image.open(img_file.stream) as img:
+        # process PIL image (plugin processing functions here)
+        img = to_gray(img)
+        
+        return serve_pil_image(img, file_extention), 200
+
+@application.route("/upload_single", methods=["GET", "POST"])
+def recieve_single_file():
+    """ Recieve single uploaded file from client
+
+    Returns:
+        Response consisting of the processed image file and status code.
+    """
+    
+    print(request.files)
+    uploaded_file = request.files.get('file')
+    file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
+    print('File received', uploaded_file.filename)
+    print('File extension', file_extention)
+    with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
         img = to_gray(img)
         
