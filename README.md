@@ -29,9 +29,13 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
         - brightness
         - contrast
         - saturation
+        - noise 
+        - 'warm', 'vintage' and some other filters
+        
 ## TODOs
 - Frontend
     - Download image [Brian]
     - Continuous editing [Brian]
 - Backend
     - Datastore [Gary]
+    - User's interface [Masha]
