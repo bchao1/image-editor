@@ -85,3 +85,9 @@ body, html
     display: flex;
     justify-content: space-between;
 }
+
+#footer
+{
+    width: 100%;
+    text-align: center;
+}

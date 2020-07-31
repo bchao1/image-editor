@@ -73,8 +73,10 @@ def recieve_single_file():
     print(request.files)
     uploaded_file = request.files.get('file')
     image_op = request.values.get('op')
-    op_magnitude = float(request.values.get('mag'))
+    op_magnitude = request.values.get('mag')
     print(image_op, op_magnitude)
+    if op_magnitude:
+        op_magnitude = float(op_magnitude)
     file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)

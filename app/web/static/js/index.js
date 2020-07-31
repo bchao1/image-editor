@@ -5,6 +5,7 @@ let slider = document.getElementById("slider");
 slider.style.visibility = "hidden";
 let sliderOutput = document.getElementById("slider-output");
 console.log('hi', sliderOutput);
+let downloadButton = document.getElementById("download-button");
 
 imageOpsElem.addEventListener('change', e => {
     console.log(e.target.value);
@@ -39,7 +40,7 @@ $(function() {
         var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
         console.log(selected_op);
         form_data.append('op', selected_op);
-        form_data.append('mag', slider.scaledValue);
+        form_data.append('mag', slider.scaledValue | 0); // guard undefined
         $.ajax({
             type: 'POST',
             url: '/uploadsingle',
@@ -49,6 +50,8 @@ $(function() {
             processData: false,
             success: function(data) {
                 document.getElementById("result-preview").src = `data:${mimetype};base64,` + data;
+                downloadButton.href = `data:${mimetype};base64,` + data
+                downloadButton.download = `test.${mimetype.split('/')[1]}`; // get file extension
                 console.log(data);
             },
         });
