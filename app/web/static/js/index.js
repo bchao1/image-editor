@@ -1,10 +1,8 @@
-// Setup code
-
+// Global accessors
+let sessionID = uuidv4();
 let imageOpsElem = document.getElementById('image-ops');
-let slider = document.getElementById("slider");
-slider.style.visibility = "hidden";
+let slider = document.getElementById("slider"); 
 let sliderOutput = document.getElementById("slider-output");
-console.log('hi', sliderOutput);
 let downloadButton = document.getElementById("download-button");
 
 const initSlider = imgOp => {
@@ -32,24 +30,6 @@ const initSlider = imgOp => {
     }
 }
 
-imageOpsElem.addEventListener('change', e => {
-    console.log(e.target.value);
-    let imgOp = e.target.value;
-    initSlider(imgOp);
-})
-
-slider.addEventListener("input", e => {
-    let value = e.target.value;
-    let selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
-    if(selected_op.includes("enhance")){
-        slider.scaledValue = slider.range * value / (slider.max - slider.min);
-    }
-    else if(selected_op.includes("quantize")){
-        slider.scaledValue = parseInt(Math.pow(2, slider.value));
-    }
-    sliderOutput.innerHTML = slider.scaledValue;
-})
-// 
 // jQuery + ajax upload file
 $(function() {
     $('#upload-file-btn').click(function() {
@@ -96,4 +76,28 @@ $(function(){
     });
 })
 
-// 
+// Initialization code
+
+const setup = () => {
+    // Init slider
+    var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
+    initSlider(selected_op);
+
+    imageOpsElem.addEventListener('change', e => {
+        console.log(e.target.value);
+        let imgOp = e.target.value;
+        initSlider(imgOp);
+    })
+    
+    slider.addEventListener("input", e => {
+        let value = e.target.value;
+        let selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
+        if(selected_op.includes("enhance")){
+            slider.scaledValue = slider.range * value / (slider.max - slider.min);
+        }
+        else if(selected_op.includes("quantize")){
+            slider.scaledValue = parseInt(Math.pow(2, slider.value));
+        }
+        sliderOutput.innerHTML = slider.scaledValue;
+    })
+}

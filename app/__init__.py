@@ -81,6 +81,7 @@ def recieve_single_file():
     file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)
+    
     with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
         if "filter" in image_op:
