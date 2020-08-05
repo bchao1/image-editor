@@ -27,6 +27,7 @@ def create_app():
 
 application = create_app()
 application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+application.cache = {}  # mimick datastore
 
 @application.route("/")
 @application.route("/index.html")
@@ -75,15 +76,20 @@ def recieve_single_file():
     uploaded_file = request.files.get('file')
     image_op = request.values.get('op')
     op_magnitude = request.values.get('mag')
-    print(image_op, op_magnitude)
+    sess_id = request.values.get('sess')
+    print(image_op, op_magnitude, sess_id)
+    if sess_id not in application.cache:
+        application.cache[sess_id] = []  # create cache sequence
     if op_magnitude:
         op_magnitude = float(op_magnitude)
     file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)
-    
+
     with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
+        if len(application.cache[sess_id]) == 0:  # original image
+            application.cache[sess_id].append(img)
         if "filter" in image_op:
             f = filter_dict[image_op]
             img = f(img)
@@ -93,5 +99,6 @@ def recieve_single_file():
         elif "quantize" in image_op:
             f = quantize_dict[image_op]
             img = f(img, int(op_magnitude))
-        
+        application.cache[sess_id].append(img)  # store image to cache
+        print(application.cache)
         return serve_pil_image(img, file_extention), 200

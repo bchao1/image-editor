@@ -40,6 +40,7 @@ $(function() {
         console.log(selected_op);
         form_data.append('op', selected_op);
         form_data.append('mag', slider.scaledValue | 0); // guard undefined
+        form_data.append('sess', sessionID); // session id
         $.ajax({
             type: 'POST',
             url: '/uploadsingle',
