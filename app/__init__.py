@@ -90,9 +90,12 @@ def recieve_single_file():
         # process PIL image (plugin processing functions here)
         if len(application.cache[sess_id]) == 0:  # original image
             application.cache[sess_id].append(img)
-        if "filter" in image_op:
+        if "filter" in image_op:                
             f = filter_dict[image_op]
-            img = f(img)
+            if "bilateral" in image_op:
+                img = f(img, 3, 5)
+            else:
+                img = f(img)
         elif "enhance" in image_op:
             f = enhance_dict[image_op]
             img = f(img, op_magnitude)

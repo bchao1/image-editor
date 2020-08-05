@@ -3,6 +3,7 @@ import numpy as np
 from scipy import ndimage
 from skimage import feature, filters
 import collections
+from .bilateral import bilateral_filter
 
 
 def to_gray(img):
@@ -84,4 +85,5 @@ filter_dict = {
     'filter-sobel': sobel_filter,
     'filter-black-white-otsu': binarize_otsu,
     'filter-black-white-median': binarize_median,
+    'filter-bilateral': bilateral_filter
 }
