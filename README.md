@@ -29,3 +29,9 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
         - brightness
         - contrast
         - saturation
+## TODOs
+- Frontend
+    - Download image [Brian]
+    - Continuous editing [Brian]
+- Backend
+    - Datastore [Gary]
