@@ -24,13 +24,15 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
         - binarize image color
         - canny edge detector
         - gray scale
+        - otsu's method
     - `imaging/enhance`
         - color
         - brightness
         - contrast
         - saturation
+    - `imaging/quantize`:
+        - median-cut quantization
+        - kmeans quantization
 
 ## TODO
-- quantization
-- otzu's method
 - bilateral filter
