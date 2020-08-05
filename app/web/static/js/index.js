@@ -7,9 +7,7 @@ let sliderOutput = document.getElementById("slider-output");
 console.log('hi', sliderOutput);
 let downloadButton = document.getElementById("download-button");
 
-imageOpsElem.addEventListener('change', e => {
-    console.log(e.target.value);
-    let imgOp = e.target.value;
+const initSlider = imgOp => {
     if(imgOp.includes("enhance")){
         slider.style.visibility = "visible";
         slider.min = 0;
@@ -19,18 +17,39 @@ imageOpsElem.addEventListener('change', e => {
         slider.scaledValue = slider.value * slider.range / (slider.max - slider.min);
         sliderOutput.innerHTML = slider.scaledValue;
     }
+    else if(imgOp.includes("quantize")){
+        // Fixed levels of quantization = 256 colors
+        slider.style.visibility = "visible";
+        slider.min = 1;
+        slider.max = 8;
+        slider.value = 5;
+        slider.scaledValue = parseInt(Math.pow(2, slider.value));
+        sliderOutput.innerHTML = slider.scaledValue;
+    }
     else{
         slider.style.visibility = "hidden";
         sliderOutput.innerHTML = "";
     }
+}
+
+imageOpsElem.addEventListener('change', e => {
+    console.log(e.target.value);
+    let imgOp = e.target.value;
+    initSlider(imgOp);
 })
 
 slider.addEventListener("input", e => {
     let value = e.target.value;
-    slider.scaledValue = slider.range * value / (slider.max - slider.min);
+    let selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
+    if(selected_op.includes("enhance")){
+        slider.scaledValue = slider.range * value / (slider.max - slider.min);
+    }
+    else if(selected_op.includes("quantize")){
+        slider.scaledValue = parseInt(Math.pow(2, slider.value));
+    }
     sliderOutput.innerHTML = slider.scaledValue;
 })
-
+// 
 // jQuery + ajax upload file
 $(function() {
     $('#upload-file-btn').click(function() {
@@ -52,7 +71,6 @@ $(function() {
                 document.getElementById("result-preview").src = `data:${mimetype};base64,` + data;
                 downloadButton.href = `data:${mimetype};base64,` + data
                 downloadButton.download = `test.${mimetype.split('/')[1]}`; // get file extension
-                console.log(data);
             },
         });
     });

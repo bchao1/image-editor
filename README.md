@@ -29,3 +29,8 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
         - brightness
         - contrast
         - saturation
+
+## TODO
+- quantization
+- otzu's method
+- bilateral filter

@@ -20,7 +20,8 @@
         <div id="dropdown-wrapper">
             <select id="image-ops">
                 <option value="filter-grayscale" selected="selected">Grayscale</option>
-                <option value="filter-black-white" >Black and White</option>
+                <option value="filter-black-white-median" >Black and White (Median)</option>
+                <option value="filter-black-white-otsu" >Black and White (Otsu's)</option>
                 <option value="filter-two-color">Two Colors</option>
                 <option value="filter-canny">Canny Edge Detector</option>
                 <option value="filter-sobel">Sobel Filter</option>
@@ -28,6 +29,8 @@
                 <option value="enhance-contrast">Enhance Contrast</option>
                 <option value="enhance-sharpness">Enhance Sharpness</option>
                 <option value="enhance-color">Enhance Color</option>
+                <option value="quantize-kmeans">Color Quantization (K-means)</option>
+                <option value="quantize-median">Color Quantization (Median-cut)</option>
             </select>
             <div class="slider-container">
                 <input type="range" min="0" max="100" value="50" id="slider">

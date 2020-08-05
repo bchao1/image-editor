@@ -14,6 +14,7 @@ from .utils import serve_pil_image
 
 from .imaging.filters import filter_dict
 from .imaging.enhance import enhance_dict
+from .imaging.quantize import quantize_dict
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
@@ -88,5 +89,8 @@ def recieve_single_file():
         elif "enhance" in image_op:
             f = enhance_dict[image_op]
             img = f(img, op_magnitude)
+        elif "quantize" in image_op:
+            f = quantize_dict[image_op]
+            img = f(img, int(op_magnitude))
         
         return serve_pil_image(img, file_extention), 200
