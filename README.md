@@ -10,12 +10,13 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
 > Current deployed app is here: https://summer20-sps-68.df.r.appspot.com. Source code is in dev branch `brian_dev`.
 
 - Frontend
-    - Upload images
+    - Upload images 
     - Select image operations
     - Display uploaded/processed preview images
     - Slide bar for operation magnitudes
     - Multiple image upload
     - Multiple image drag and drop reordering
+    - Download images
 - Backend
     - Flask app skeleton 
 - Image processing functions
@@ -33,6 +34,10 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
     - `imaging/quantize`:
         - median-cut quantization
         - kmeans quantization
-
-## TODO
-- bilateral filter
+## TODOs
+- Frontend
+    - Continuous editing [Brian]
+- Backend
+    - Datastore [Gary]
+- Image 
+    - bilateral filter [Brian]
