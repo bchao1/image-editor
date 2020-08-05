@@ -1,18 +1,57 @@
+// Setup code
+
+let imageOpsElem = document.getElementById('image-ops');
+let slider = document.getElementById("slider");
+slider.style.visibility = "hidden";
+let sliderOutput = document.getElementById("slider-output");
+console.log('hi', sliderOutput);
+let downloadButton = document.getElementById("download-button");
+
+imageOpsElem.addEventListener('change', e => {
+    console.log(e.target.value);
+    let imgOp = e.target.value;
+    if(imgOp.includes("enhance")){
+        slider.style.visibility = "visible";
+        slider.min = 0;
+        slider.max = 100;
+        slider.value = 50;
+        slider.range = 3;
+        slider.scaledValue = slider.value * slider.range / (slider.max - slider.min);
+        sliderOutput.innerHTML = slider.scaledValue;
+    }
+    else{
+        slider.style.visibility = "hidden";
+        sliderOutput.innerHTML = "";
+    }
+})
+
+slider.addEventListener("input", e => {
+    let value = e.target.value;
+    slider.scaledValue = slider.range * value / (slider.max - slider.min);
+    sliderOutput.innerHTML = slider.scaledValue;
+})
+
 // jQuery + ajax upload file
 $(function() {
     $('#upload-file-btn').click(function() {
         var form_data = new FormData($('#upload-file')[0]);
         var mimetype = document.getElementById("upload-file-input").files[0].type;
         console.log(mimetype);
+        var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
+        console.log(selected_op);
+        form_data.append('op', selected_op);
+        form_data.append('mag', slider.scaledValue | 0); // guard undefined
         $.ajax({
             type: 'POST',
-            url: '/upload',
+            url: '/uploadsingle',
             data: form_data,
             contentType: false,
             cache: false,
             processData: false,
             success: function(data) {
                 document.getElementById("result-preview").src = `data:${mimetype};base64,` + data;
+                downloadButton.href = `data:${mimetype};base64,` + data
+                downloadButton.download = `test.${mimetype.split('/')[1]}`; // get file extension
                 console.log(data);
             },
         });
@@ -38,3 +77,5 @@ $(function(){
         readDataUrl(this);
     });
 })
+
+// 

@@ -3,6 +3,69 @@ body, html
     height: 100vh;
     width: 100vw;
     padding: 0;
+    font-family: 'Roboto';
+}
+
+#title
+{
+    width: 100%;
+    text-align: center;
+
+}
+
+#upload-file
+{
+    text-align: center;
+}
+
+#dropdown-wrapper
+{
+    width: 20%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+#slider-container
+{
+    width: 100%;
+}
+
+#slider-output
+{
+    width: 100%;
+    text-align: center;
+}
+
+#slider
+{
+    width: 100%;
+    background: #e3e3e3; /* Grey background */
+    height: 50px;
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+#slider::-webkit-slider-thumb 
+{
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+#slider:hover 
+{
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+#image-ops
+{
+    text-align: center;
+    width: 100%;
 }
 
 .preview-image-div
@@ -21,4 +84,10 @@ body, html
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+}
+
+#footer
+{
+    width: 100%;
+    text-align: center;
 }
