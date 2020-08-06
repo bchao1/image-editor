@@ -6,7 +6,7 @@ import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 
-from PIL import Image 
+from PIL import Image
 
 from .api import api as api_blueprint
 from .errors import add_error_handlers
@@ -14,6 +14,7 @@ from .utils import serve_pil_image
 
 from .imaging.filters import filter_dict
 from .imaging.enhance import enhance_dict
+from .imaging.color_filters import color_dict
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
@@ -84,6 +85,9 @@ def recieve_single_file():
         # process PIL image (plugin processing functions here)
         if "filter" in image_op:
             f = filter_dict[image_op]
+            img = f(img)
+        elif "fil" in image_op:
+            f = color_dict[image_op]
             img = f(img)
         elif "enhance" in image_op:
             f = enhance_dict[image_op]

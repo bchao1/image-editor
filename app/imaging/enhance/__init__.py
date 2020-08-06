@@ -1,4 +1,5 @@
 from PIL import ImageEnhance
+from PIL import Image, ImageDraw
 
 
 def adjust_brightness(img, m=2):
@@ -12,6 +13,7 @@ def adjust_sharpness(img, m=2):
 
 def adjust_color(img, m=2):
     return ImageEnhance.Color(img).enhance(m)
+
 
 enhance_dict = {
     "enhance-brightness": adjust_brightness,

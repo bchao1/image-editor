@@ -38,10 +38,13 @@ def two_color(img):
     img = c1 * fmask + c2 * bmask
     return Image.fromarray(img.astype(np.uint8))
 
+
+
 filter_dict = {
     'filter-grayscale': to_gray,
     'filter-black-white': binarize,
     'filter-two-color': two_color,
     'filter-canny': canny_edge_detector,
-    'filter-sobel': sobel_filter
+    'filter-sobel': sobel_filter,
+
 }
