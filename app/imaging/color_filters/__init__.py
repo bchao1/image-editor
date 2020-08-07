@@ -97,10 +97,72 @@ def green_filter(img):
     
     return img_green
     
+def noise1(img):
+
+    img2 = img
+    draw = ImageDraw.Draw(img2) 
+    width = img2.size[0] 
+    height = img2.size[1] 
+    pix = img2.load()
+    
+    for i in range(width):
+        for j in range(height):
+            rand = random.randint(-10, 10)
+            a = pix[i, j][0] + rand
+            b = pix[i, j][1] + rand
+            c = pix[i, j][2] + rand
+            if (a < 0):
+                a = 0
+            if (b < 0):
+                b = 0
+            if (c < 0):
+                c = 0
+            if (a > 255):
+                a = 255
+            if (b > 255):
+                b = 255
+            if (c > 255):
+                c = 255
+            draw.point((i, j), (a, b, c))
+
+    return img2
+
+def noise(img):
+
+    img2 = img
+    draw = ImageDraw.Draw(img2) 
+    width = img2.size[0] 
+    height = img2.size[1] 
+    pix = img2.load()
+    
+    for i in range(width):
+        for j in range(height):
+            rand = random.randint(-40, 40)
+            a = pix[i, j][0] + rand
+            b = pix[i, j][1] + rand
+            c = pix[i, j][2] + rand
+            if (a < 0):
+                a = 0
+            if (b < 0):
+                b = 0
+            if (c < 0):
+                c = 0
+            if (a > 255):
+                a = 255
+            if (b > 255):
+                b = 255
+            if (c > 255):
+                c = 255
+            draw.point((i, j), (a, b, c))
+
+    return img2
+
 
 color_dict = {
     'fil-warm': warm_filter,
     'fil-old': old_filter,
-    'fil-green': green_filter
+    'fil-green': green_filter,
+    'fil-noise1': noise1,
+    'fil-noise': noise
 }
 
