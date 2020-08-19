@@ -91,3 +91,10 @@ body, html
     width: 100%;
     text-align: center;
 }
+
+#toggle-ops
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
