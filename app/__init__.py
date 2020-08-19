@@ -72,7 +72,10 @@ def recieve_share_image():
     b64str = request.values.get('image_data').split("base64,")[-1]
     img_id = request.values.get('image_id')
     print("Recieved image ", img_id)
+
+    # SAVE THIS IMAGE
     img = b64ToImage(b64str)  # return PIL image
+
     return "Share Success!", 200
 
 @application.route("/undo-op", methods=["POST"])
@@ -106,7 +109,6 @@ def recieve_single_file():
     file_extention = uploaded_file.filename.split('.')[-1]  # get file extension
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)
-    img_data = request.get
 
     with Image.open(uploaded_file.stream) as img:
         # process PIL image (plugin processing functions here)
