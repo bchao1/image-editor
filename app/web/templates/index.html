@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cool Image Editor</title>
+    <title>Image Editor</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 </head>
-<body onload="setup()">
-    <div>
+    <body onload="setup()">
+    
+  <ul class="menu-main">
+    <li><a href= "#home"> Home</a></li>
+    <li><a href="#editor">Image editor</a></li>
+  </ul>
+
+
+    <div id="home">
+
+        <div id="pics">
+          <img src=/images/1.jpg>
+          <img src=/images/2.jpg>
+          <img src=/images/3.jpg>
+          <img src=/images/4.jpg>
+          <img src=/images/5.jpg>
+        </div>
+
+        <h1> About </h1>
+        <p> Our editor offers so many functions and filters, 
+            and all you need is an internet connection. </p>
+        <h1> How to edit images online? </h1>
+        <ul>
+			<p1> • Click 'select a file' button <br></p1>
+
+			<p1> • Choose a photo from your computer <br></p1>
+
+			<p1> • Choose a filter from the list <br></p1>
+
+            <p1> • Click 'process' <br></p1>
+
+            <p1> • Donwoald your picture and share it with friends! <br></p1>
+		</ul>
+    </div>
+
+    <div id="editor">
         <!--<a href="stitch.html">Image Stitching</a>-->
-        <h1 id="title">Title here</h1>
+        <h1 id="title">Make your pictures awesome!</h1>
         <form id="upload-file" method="post" enctype="multipart/form-data">
-            <label for="file">Select a file</label>
+            <p for="file">Select a file</p>
             <input id="upload-file-input" name="file" type="file">
             <button id="upload-file-btn" type="button">Process</button>
         </form>
@@ -38,7 +72,6 @@
                 <div id="slider-output"></div>
             </div>
         </div>
-        
         <div id="preview-block">
             <div class="preview-image-div">
                 <img id="upload-preview" src="#" alt="uploaded image">
