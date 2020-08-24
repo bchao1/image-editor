@@ -1,0 +1,71 @@
+body {
+    font-family: "Roboto";
+}
+
+.center-align {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#gallery {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-item {
+    display: inline-block;
+    zoom: 1; 
+    *display: inline;
+    height: 250px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.image-item img {
+    height: 80%;
+}
+
+.like-div {
+    width: 100%;
+    height: 16%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+.like-div img {
+    vertical-align: middle;
+}
+
+.like-div img:hover {
+    cursor: pointer;
+    animation: shake 0.5s; 
+    animation-iteration-count: infinite; 
+}
+
+.like-count {
+    font-size: 1.5rem;
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }

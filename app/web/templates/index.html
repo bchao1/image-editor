@@ -10,7 +10,8 @@
 </head>
 <body onload="setup()">
     <div>
-        <!--<a href="stitch.html">Image Stitching</a>-->
+        <a href="share.html">Image Sharing</a>
+        
         <h1 id="title">Title here</h1>
         <form id="upload-file" method="post" enctype="multipart/form-data">
             <label for="file">Select a file</label>
@@ -45,10 +46,17 @@
             </div>
             <div class="preview-image-div">
                 <img id="result-preview" src="#" alt="processed image">
+                <!--
+                <div id="toggle-ops">
+                    <button id="undo-btn">Undo</button>
+                    <button id="redo-btn">Redo</button>
+                </div>
+                -->
             </div>
         </div> 
         <div id="footer">
             <a id="download-button">Download Processed Image</a>
+            <button id="share-button">Share Image</button>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -10,11 +10,13 @@ from PIL import Image
 
 from .api import api as api_blueprint
 from .errors import add_error_handlers
-from .utils import serve_pil_image
+from .utils import serve_pil_image, b64ToImage
 
 from .imaging.filters import filter_dict
 from .imaging.enhance import enhance_dict
 from .imaging.quantize import quantize_dict
+
+import json 
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
@@ -34,9 +36,9 @@ application.cache = {}  # mimick datastore
 def index_page():
     return render_template('index.html')
 
-@application.route("/stitch.html")
+@application.route("/share.html")
 def stitch_page():
-    return render_template('stitch.html')
+    return render_template('share.html')
 
 @application.route("/uploadmultiple", methods=["GET", "POST"])
 def recieve_multiple_files():
@@ -63,6 +65,54 @@ def recieve_multiple_files():
         img = to_gray(img)
         
         return serve_pil_image(img, file_extention), 200
+
+@application.route("/shareimage", methods=["GET", "POST"])
+def recieve_share_image():
+    # Save (key, value) = (img id, img data) pair to binary store
+    b64str = request.values.get('image_data').split("base64,")[-1]
+    img_id = request.values.get('image_id')
+    print("Recieved image ", img_id)
+
+    # SAVE THIS IMAGE
+    img = b64ToImage(b64str)  # return PIL image
+
+    return "Share Success!", 200
+
+@application.route("/undo-op", methods=["POST"])
+def undo_operation():
+    sessID = request.values.get("sess")
+    return "Undo op", 200
+
+@application.route("/redo-op", methods=["POST"])
+def redo_operation():
+    sessID = request.values.get("sess")
+    return "Redo op", 200
+
+@application.route("/like_image", methods=["POST"])
+def like_image():
+    image_id = request.values.get("image_id")
+    likes = request.values.get("likes")
+    print("Liked image", image_id, likes)
+    return "Liked image updated", 200
+
+@application.route("/fetch_all_images", methods=["GET"])
+def fetch_all_images():
+    """
+        Return an object of structure:
+        {
+            'img': {
+                image_id: image base 64 data
+            },
+            'ext: {
+                image_id: image file extension
+            }
+        }
+    """
+    print("Fetch images")
+    img = Image.open("test.png")
+    # Resize image here for lower resolution
+    b64_str = serve_pil_image(img, 'png').decode()
+    return {'img':{'1': b64_str, '2': b64_str}, 'ext': {'1':'png', '2':'png'}}, 200
 
 @application.route("/uploadsingle", methods=["GET", "POST"])
 def recieve_single_file():
@@ -105,3 +155,16 @@ def recieve_single_file():
         application.cache[sess_id].append(img)  # store image to cache
         print(application.cache)
         return serve_pil_image(img, file_extention), 200
+
+# Disable cache
+@application.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
