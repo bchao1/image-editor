@@ -12,15 +12,16 @@ const setup = () => {
         success: function(data) {
             let images = data['img'];
             let extensions = data['ext'];
+            let likes = data['likes']
             Object.keys(images).forEach(function(key) {
-                imageItem = createImageItem(key, images[key], extensions[key]);
+                imageItem = createImageItem(key, images[key], extensions[key], likes[key]);
                 galleryDiv.appendChild(imageItem);
             });
         },
     });
 }
 
-const createImageItem = (image_id, image_data, extension) => {
+const createImageItem = (image_id, image_data, extension, likes) => {
     console.log(image_id, extension)
     // Image data is base64 string, image_id is the hash key in datastore
     /*
@@ -43,7 +44,7 @@ const createImageItem = (image_id, image_data, extension) => {
     likeBtn.src = "/images/like.png";
     const likeCount = document.createElement('span');
     likeCount.className = "like-count";
-    likeCount.innerHTML = 0;
+    likeCount.innerHTML = likes;
     likeDiv.appendChild(likeBtn);
     likeDiv.appendChild(likeCount);
     imageItem.appendChild(likeDiv);
