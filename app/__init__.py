@@ -7,6 +7,7 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 
 from PIL import Image 
+from google.cloud import storage, datastore
 
 from .api import api as api_blueprint
 from .errors import add_error_handlers
@@ -16,7 +17,16 @@ from .imaging.filters import filter_dict
 from .imaging.enhance import enhance_dict
 from .imaging.quantize import quantize_dict
 
-import json 
+import json
+
+BUCKET_NAME = r'staging.summer20-sps-68.appspot.com'
+PROJECT_ID = r'summer20-sps-68'
+
+def upload(bucket_name, source_file_name, destination_blob_name):
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_filename(source_file_name)
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
@@ -75,6 +85,10 @@ def recieve_share_image():
 
     # SAVE THIS IMAGE
     img = b64ToImage(b64str)  # return PIL image
+    img_name = f'{img_id}.jpg'
+    img.save(img_name, 'jpeg')
+    upload(BUCKET_NAME, os.path.join(os.getcwd(), img_name), f'Images/{img_name}')
+    os.remove(img_name)
 
     return "Share Success!", 200
 
@@ -93,6 +107,13 @@ def like_image():
     image_id = request.values.get("image_id")
     likes = request.values.get("likes")
     print("Liked image", image_id, likes)
+    
+    client = datastore.Client(PROJECT_ID)
+    key = client.key('Likes', 'likes_data')
+    likes_data = client.get(key)
+    likes_data[image_id] = likes
+    client.put(likes_data)
+
     return "Liked image updated", 200
 
 @application.route("/fetch_all_images", methods=["GET"])
@@ -107,12 +128,40 @@ def fetch_all_images():
                 image_id: image file extension
             }
         }
-    """
+    """    
     print("Fetch images")
-    img = Image.open("test.png")
-    # Resize image here for lower resolution
-    b64_str = serve_pil_image(img, 'png').decode()
-    return {'img':{'1': b64_str, '2': b64_str}, 'ext': {'1':'png', '2':'png'}}, 200
+
+    storage_client = storage.Client()
+    images = storage_client.list_blobs(BUCKET_NAME, prefix='Images/')
+
+    datastore_client = datastore.Client(PROJECT_ID)
+    key = datastore_client.key('Likes', 'likes_data')
+    likes_data = datastore_client.get(key)
+
+    ret = dict()
+    ret['img'] = dict()
+    ret['ext'] = dict()
+    ret['likes'] = dict()
+
+    for image in images:
+        if image.name[-3:] == 'jpg':
+            image.download_to_filename(os.path.join(os.getcwd(), image.name))
+            print(os.path.join(os.getcwd(), image.name))
+            img = Image.open(image.name)
+            width, height = img.size
+            if max(width, height) > 800:
+                factor = max(width, height)/800
+                img.resize((int(width/factor), int(height/factor)))
+            b64_str = serve_pil_image(img, 'jpeg').decode()
+            ret['img'][image.name] = b64_str
+            ret['ext'][image.name] = 'jpg'
+            if image.name in likes_data:
+                ret['likes'][image.name] = likes_data[image.name]
+            else:
+                ret['likes'][image.name] = 0
+            print(image.name, ret['likes'][image.name])
+
+    return ret, 200
 
 @application.route("/uploadsingle", methods=["GET", "POST"])
 def recieve_single_file():
