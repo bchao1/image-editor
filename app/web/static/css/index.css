@@ -70,7 +70,9 @@ body, html
 
 .preview-image-div
 {
-    width: 45%
+    width: 45%;
+    height: 40vh;
+    border: 1px solid black;
 }
 
 .preview-image-div img 
@@ -88,8 +90,10 @@ body, html
 
 #footer
 {
+    position: absolute;
     width: 100%;
     text-align: center;
+    bottom: 10vh;
 }
 
 #toggle-ops
