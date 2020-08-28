@@ -1,4 +1,119 @@
-body, html
+
+body {
+  background-color: #f5f5f5;
+  color: #4e4e4e;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 1.5em;
+}
+
+#pics {
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  align-items: center;
+  justify-content: center;
+}
+
+#pics img {
+  margin: 30px;
+  width: auto;
+  height: 70px;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+.menu-main {
+  list-style: none;
+  margin: 40px 0 5px;
+  padding: 25px 0 5px;
+  text-align: center;
+  background: white;
+}
+.menu-main li {display: inline-block;}
+.menu-main li:after {
+  content: "|";
+  color: #606060;
+  display: inline-block;
+  vertical-align:top;
+}
+.menu-main li:last-child:after {content: none;}
+.menu-main a {
+  text-decoration: none;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 20px;
+  margin: 0 34px 0 30px;
+  font-size: 17px;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: color .2s;
+}
+.menu-main a, .menu-main a:visited {color: #9d999d;}
+.menu-main a.current, .menu-main a:hover{color: #feb386;}
+.menu-main a:before,
+.menu-main a:after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  top: auto;
+  right: 50%;
+  bottom: -5px;
+  left: 50%;
+  background: #feb386;
+  transition: .8s;
+}
+.menu-main a:hover:before, .menu-main .current:before {left: 0;}
+.menu-main a:hover:after, .menu-main .current:after {right: 0;}   
+@media (max-width: 550px) {
+.menu-main {padding-top: 0;}
+.menu-main li {display: block;}
+.menu-main li:after {content: none;}
+.menu-main a {
+  padding: 25px 0 20px; 
+  margin: 0 30px;
+}
+}
+
+p {
+    font-size: 0.7em;
+    color: #4e4e4e;
+    text-indent: 36px;
+}
+
+
+p1 {
+    font-size: 0.7em;
+    color: #4e4e4e;
+    text-indent: 36px;
+}
+
+h1 {
+    font-size: 1.1em;
+    color: #435459;
+    text-shadow: 3px 2px  #feb386;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    text-indent: 36px;
+}
+
+form {
+    background-color: white;
+    color: #4e4e4e;
+}
+
+#image {
+  width: 100%;
+}
+
+#image img {
+    height: auto;
+    width: 100px;
+}
+
+html
 {
     height: 100vh;
     width: 100vw;
@@ -11,6 +126,9 @@ body, html
 {
     width: 100%;
     text-align: center;
+    font-family: Monospace;
+    font-size: 2em;
+    border-bottom: 1.5px solid #305661;
 
 }
 
@@ -96,11 +214,4 @@ body, html
     width: 100%;
     text-align: center;
     margin-top: 5vh;
-}
-
-#toggle-ops
-{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
 }
