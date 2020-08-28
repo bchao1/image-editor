@@ -6,6 +6,7 @@ let sliderOutput = document.getElementById("slider-output");
 let downloadButton = document.getElementById("download-button");
 let shareButton = document.getElementById("share-button");
 let resultPreview = document.getElementById("result-preview");
+let uploadPreview = document.getElementById("upload-preview");
 
 const initSlider = imgOp => {
     if(imgOp.includes("enhance")){
@@ -38,7 +39,8 @@ const readDataUrl = input => {
         console.log(input.files);
         var reader = new FileReader();
         reader.onload = e => {
-            document.getElementById("upload-preview").src = e.target.result;
+            uploadPreview.style.height = null;
+            uploadPreview.src = e.target.result;
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -56,6 +58,8 @@ $(function(){
 // Initialization code
 
 const setup = () => {
+    uploadPreview.style.height = "40vh";
+    resultPreview.style.height = "40vh";
     // Init slider
     var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
     initSlider(selected_op);
@@ -97,6 +101,7 @@ const setup = () => {
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    resultPreview.style.height = null;
                     resultPreview.src = `data:${mimetype};base64,` + data;
                     downloadButton.href = `data:${mimetype};base64,` + data
                     downloadButton.download = `test.${mimetype.split('/')[1]}`; // get file extension

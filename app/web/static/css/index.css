@@ -72,7 +72,8 @@ body, html
 .preview-image-div
 {
     width: 45%;
-    height: 40vh;
+    height: max-content;
+    overflow: auto;
     border: 1px solid black;
 }
 
@@ -94,7 +95,7 @@ body, html
     position: absolute;
     width: 100%;
     text-align: center;
-    bottom: 10vh;
+    margin-top: 5vh;
 }
 
 #toggle-ops
