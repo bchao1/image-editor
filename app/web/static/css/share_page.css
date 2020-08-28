@@ -2,6 +2,8 @@ body {
     font-family: "Roboto";
     text-align: center;
     width: 100vw;
+    background-color: #f5f5f5;
+    color: #4e4e4e;
 }
 
 .center-align {
@@ -74,7 +76,7 @@ body {
 
 #loader {
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border-top: 16px solid #feb386; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;

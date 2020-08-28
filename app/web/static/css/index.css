@@ -128,20 +128,20 @@ html
     text-align: center;
     font-family: Monospace;
     font-size: 2em;
-    border-bottom: 1.5px solid #305661;
+    /*border-bottom: 1.5px solid #305661;*/
 
 }
 
 #upload-file
 {
     text-align: center;
+    background-color: #f5f5f5;
 }
 
 #dropdown-wrapper
 {
     width: 20%;
     margin: 0 auto;
-    margin-bottom: 50px;
 }
 
 #slider-container
@@ -214,4 +214,5 @@ html
     width: 100%;
     text-align: center;
     margin-top: 5vh;
+    margin-bottom: 10vh;
 }

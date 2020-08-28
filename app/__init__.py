@@ -55,8 +55,13 @@ def index_page():
 
 
 @application.route("/share.html")
-def stitch_page():
+def share_page():
     return render_template('share.html')
+
+
+@application.route("/edit.html")
+def edit_page():
+    return render_template('edit.html')
 
 
 @application.route("/uploadmultiple", methods=["GET", "POST"])
