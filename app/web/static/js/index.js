@@ -4,6 +4,9 @@ let imageOpsElem = document.getElementById('image-ops');
 let slider = document.getElementById("slider"); 
 let sliderOutput = document.getElementById("slider-output");
 let downloadButton = document.getElementById("download-button");
+let shareButton = document.getElementById("share-button");
+let resultPreview = document.getElementById("result-preview");
+let uploadPreview = document.getElementById("upload-preview");
 
 const initSlider = imgOp => {
     if(imgOp.includes("enhance")){
@@ -30,40 +33,14 @@ const initSlider = imgOp => {
     }
 }
 
-// jQuery + ajax upload file
-$(function() {
-    $('#upload-file-btn').click(function() {
-        var form_data = new FormData($('#upload-file')[0]);
-        var mimetype = document.getElementById("upload-file-input").files[0].type;
-        console.log(mimetype);
-        var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
-        console.log(selected_op);
-        form_data.append('op', selected_op);
-        form_data.append('mag', slider.scaledValue | 0); // guard undefined
-        form_data.append('sess', sessionID); // session id
-        $.ajax({
-            type: 'POST',
-            url: '/uploadsingle',
-            data: form_data,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function(data) {
-                document.getElementById("result-preview").src = `data:${mimetype};base64,` + data;
-                downloadButton.href = `data:${mimetype};base64,` + data
-                downloadButton.download = `test.${mimetype.split('/')[1]}`; // get file extension
-            },
-        });
-    });
-});
-
 // read (single) image as data url, and set preview image source
 const readDataUrl = input => {
     if(input.files && input.files[0]){
         console.log(input.files);
         var reader = new FileReader();
         reader.onload = e => {
-            document.getElementById("upload-preview").src = e.target.result;
+            uploadPreview.style.height = null;
+            uploadPreview.src = e.target.result;
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -74,12 +51,15 @@ $(function(){
     $("#upload-file-input").change(function(){
         console.log("input file change");
         readDataUrl(this);
+        resultPreview.src = "none";
     });
 })
 
 // Initialization code
 
 const setup = () => {
+    uploadPreview.style.height = "40vh";
+    resultPreview.style.height = "40vh";
     // Init slider
     var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
     initSlider(selected_op);
@@ -100,5 +80,89 @@ const setup = () => {
             slider.scaledValue = parseInt(Math.pow(2, slider.value));
         }
         sliderOutput.innerHTML = slider.scaledValue;
+    })
+    // jQuery + ajax upload file
+    $(function() {
+        $('#upload-file-btn').click(function() {
+            var form_data = new FormData($('#upload-file')[0]);
+            var mimetype = document.getElementById("upload-file-input").files[0].type;
+            console.log(mimetype);
+            var selected_op = imageOpsElem.options[imageOpsElem.selectedIndex].value;
+            console.log(selected_op);
+            form_data.append('op', selected_op);
+            form_data.append('mag', slider.scaledValue | 0); // guard undefined
+            form_data.append('sess', sessionID); // session id
+            //form_data.append('image_data', resultPreview.src) // also send processed result. First time = null
+            $.ajax({
+                type: 'POST',
+                url: '/uploadsingle',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    resultPreview.style.height = null;
+                    resultPreview.src = `data:${mimetype};base64,` + data;
+                    downloadButton.href = `data:${mimetype};base64,` + data
+                    downloadButton.download = `test.${mimetype.split('/')[1]}`; // get file extension
+                },
+            });
+        });
+    });
+
+    $(function(){
+        $("#share-button").click(function(){
+            console.log("Share");
+            var form_data = new FormData();
+            form_data.append("image_data", resultPreview.src);
+            form_data.append("image_id", uuidv4());
+            $.ajax({
+                type: "POST",
+                url: '/shareimage',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data)
+                }
+            });
+        });
+    });
+
+    $(function(){
+        $("#undo-btn").click(function(){
+            var form_data = new FormData();
+            form_data.append("sess", sessionID)
+            $.ajax({
+                type: "POST",
+                url: '/undo-op',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+        })
+    })
+
+    $(function(){
+        $("#redo-btn").click(function(){
+            var form_data = new FormData();
+            form_data.append("sess", sessionID)
+            $.ajax({
+                type: "POST",
+                url: '/redo-op',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+        })
     })
 }

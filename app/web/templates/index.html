@@ -10,10 +10,10 @@
 </head>
     <body onload="setup()">
     
-  <ul class="menu-main">
-    <li><a href= "#home"> Home</a></li>
-    <li><a href="#editor">Image editor</a></li>
-  </ul>
+    <ul class="menu-main">
+      <li><a href= "#home"> Home</a></li>
+      <li><a href="#editor">Image editor</a></li>
+    </ul>
 
 
     <div id="home">
@@ -31,21 +31,22 @@
             and all you need is an internet connection. </p>
         <h1> How to edit images online? </h1>
         <ul>
-			<p1> • Click 'select a file' button <br></p1>
+          <p1> • Click 'select a file' button <br></p1>
 
-			<p1> • Choose a photo from your computer <br></p1>
+          <p1> • Choose a photo from your computer <br></p1>
 
-			<p1> • Choose a filter from the list <br></p1>
+          <p1> • Choose a filter from the list <br></p1>
 
-            <p1> • Click 'process' <br></p1>
+                <p1> • Click 'process' <br></p1>
 
-            <p1> • Donwoald your picture and share it with friends! <br></p1>
-		</ul>
+                <p1> • Donwoald your picture and share it with friends! <br></p1>
+        </ul>
     </div>
 
     <div id="editor">
-        <!--<a href="stitch.html">Image Stitching</a>-->
         <h1 id="title">Make your pictures awesome!</h1>
+        <a href="share.html">Image Sharing</a>
+
         <form id="upload-file" method="post" enctype="multipart/form-data">
             <p for="file">Select a file</p>
             <input id="upload-file-input" name="file" type="file">
@@ -64,6 +65,11 @@
                 <option value="enhance-contrast">Enhance Contrast</option>
                 <option value="enhance-sharpness">Enhance Sharpness</option>
                 <option value="enhance-color">Enhance Color</option>
+                <option value="fil-warm">Warm</option>
+                <option value="fil-old">Old</option>
+                <option value="fil-green">Blue-Green</option>
+                <option value="fil-noise1">Light noise</option>
+                <option value="fil-noise">Noise</option>
                 <option value="quantize-kmeans">Color Quantization (K-means)</option>
                 <option value="quantize-median">Color Quantization (Median-cut)</option>
             </select>
@@ -74,14 +80,21 @@
         </div>
         <div id="preview-block">
             <div class="preview-image-div">
-                <img id="upload-preview" src="#" alt="uploaded image">
+                <img id="upload-preview">
             </div>
             <div class="preview-image-div">
-                <img id="result-preview" src="#" alt="processed image">
+                <img id="result-preview">
+                <!--
+                <div id="toggle-ops">
+                    <button id="undo-btn">Undo</button>
+                    <button id="redo-btn">Redo</button>
+                </div>
+                -->
             </div>
         </div> 
         <div id="footer">
             <a id="download-button">Download Processed Image</a>
+            <button id="share-button">Share Image</button>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

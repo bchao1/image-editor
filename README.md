@@ -31,13 +31,8 @@ Please refer to [this Document](./guide.md). For template usage, refer to [this 
         - brightness
         - contrast
         - saturation
+        - noise 
+        - 'warm', 'vintage' and some other filters
     - `imaging/quantize`:
         - median-cut quantization
         - kmeans quantization
-## TODOs
-- Frontend
-    - Continuous editing [Brian]
-- Backend
-    - Datastore [Gary]
-- Image 
-    - bilateral filter [Brian]

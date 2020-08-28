@@ -119,6 +119,7 @@ html
     width: 100vw;
     padding: 0;
     font-family: 'Roboto';
+    text-align: center;
 }
 
 #title
@@ -188,7 +189,10 @@ html
 
 .preview-image-div
 {
-    width: 45%
+    width: 45%;
+    height: max-content;
+    overflow: auto;
+    border: 1px solid black;
 }
 
 .preview-image-div img 
@@ -206,7 +210,8 @@ html
 
 #footer
 {
+    position: absolute;
     width: 100%;
     text-align: center;
+    margin-top: 5vh;
 }
-
