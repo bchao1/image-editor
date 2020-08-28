@@ -1,4 +1,5 @@
 const galleryDiv = document.getElementById("gallery");
+const loaderDiv = document.getElementById("loader");
 
 const setup = () => {
     // Onload -> send request to backend to query all photos
@@ -13,6 +14,7 @@ const setup = () => {
             let images = data['img'];
             let extensions = data['ext'];
             let likes = data['likes']
+            loaderDiv.style.display = "none"; // clear loader
             Object.keys(images).forEach(function(key) {
                 imageItem = createImageItem(key, images[key], extensions[key], likes[key]);
                 galleryDiv.appendChild(imageItem);

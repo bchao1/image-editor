@@ -6,7 +6,7 @@ import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 
-from PIL import Image 
+from PIL import Image
 from google.cloud import storage, datastore
 
 from .api import api as api_blueprint
@@ -23,11 +23,13 @@ import json
 BUCKET_NAME = r'staging.summer20-sps-68.appspot.com'
 PROJECT_ID = r'summer20-sps-68'
 
+
 def upload(bucket_name, source_file_name, destination_blob_name):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)
+
 
 def create_app():
     app = Flask(__name__, static_url_path='', 
@@ -38,18 +40,24 @@ def create_app():
     add_error_handlers(app)
     return app
 
+
 application = create_app()
 application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 application.cache = {}  # mimick datastore
+if not os.path.exists("Images"):
+    os.mkdir("Images")
+
 
 @application.route("/")
 @application.route("/index.html")
 def index_page():
     return render_template('index.html')
 
+
 @application.route("/share.html")
 def stitch_page():
     return render_template('share.html')
+
 
 @application.route("/uploadmultiple", methods=["GET", "POST"])
 def recieve_multiple_files():
@@ -58,7 +66,7 @@ def recieve_multiple_files():
     Returns:
         Response consisting of the processed image file and status code.
     """
-    
+
     uploaded_files = request.files.getlist('file')  # get list of files uploaded
 
     file_ordering = request.values.get('order').split(',')
@@ -70,12 +78,12 @@ def recieve_multiple_files():
     file_extention = img_file.filename.split('.')[-1]  # get file extension
     print('File received', img_file.filename)
     print('File extension', file_extention)
-    
+
     with Image.open(img_file.stream) as img:
         # process PIL image (plugin processing functions here)
         img = to_gray(img)
-        
         return serve_pil_image(img, file_extention), 200
+
 
 @application.route("/shareimage", methods=["GET", "POST"])
 def recieve_share_image():
@@ -93,15 +101,6 @@ def recieve_share_image():
 
     return "Share Success!", 200
 
-@application.route("/undo-op", methods=["POST"])
-def undo_operation():
-    sessID = request.values.get("sess")
-    return "Undo op", 200
-
-@application.route("/redo-op", methods=["POST"])
-def redo_operation():
-    sessID = request.values.get("sess")
-    return "Redo op", 200
 
 @application.route("/like_image", methods=["POST"])
 def like_image():
@@ -116,6 +115,7 @@ def like_image():
     client.put(likes_data)
 
     return "Liked image updated", 200
+
 
 @application.route("/fetch_all_images", methods=["GET"])
 def fetch_all_images():
@@ -164,6 +164,7 @@ def fetch_all_images():
 
     return ret, 200
 
+
 @application.route("/uploadsingle", methods=["GET", "POST"])
 def recieve_single_file():
     """ Recieve single uploaded file from client
@@ -171,7 +172,7 @@ def recieve_single_file():
     Returns:
         Response consisting of the processed image file and status code.
     """
-    
+
     print(request.files)
     uploaded_file = request.files.get('file')
     image_op = request.values.get('op')
@@ -190,7 +191,7 @@ def recieve_single_file():
         # process PIL image (plugin processing functions here)
         if len(application.cache[sess_id]) == 0:  # original image
             application.cache[sess_id].append(img)
-        if "filter" in image_op:                
+        if "filter" in image_op:
             f = filter_dict[image_op]
             img = f(img)
         elif "fil" in image_op:
@@ -208,6 +209,7 @@ def recieve_single_file():
         application.cache[sess_id].append(img)  # store image to cache
         print(application.cache)
         return serve_pil_image(img, file_extention), 200
+
 
 # Disable cache
 @application.after_request
