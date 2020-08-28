@@ -15,6 +15,7 @@ from .utils import serve_pil_image, b64ToImage
 
 from .imaging.filters import filter_dict
 from .imaging.enhance import enhance_dict
+from .imaging.color_filters import color_dict
 from .imaging.quantize import quantize_dict
 
 import json
@@ -191,10 +192,13 @@ def recieve_single_file():
             application.cache[sess_id].append(img)
         if "filter" in image_op:                
             f = filter_dict[image_op]
-            if "bilateral" in image_op:
-                img = f(img, 3, 5)
-            else:
-                img = f(img)
+            img = f(img)
+        elif "fil" in image_op:
+            f = color_dict[image_op]
+            img = f(img)
+        elif "enhance" in image_op:
+            f = enhance_dict[image_op]
+            img = f(img, op_magnitude)
         elif "enhance" in image_op:
             f = enhance_dict[image_op]
             img = f(img, op_magnitude)
