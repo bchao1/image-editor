@@ -1,7 +1,14 @@
 from io import BytesIO
 from flask import send_file
 import base64
+from PIL import Image
 
+def b64ToImage(b64_string):
+    data = base64.b64decode(b64_string)
+    buf = BytesIO(data)
+    img = Image.open(buf)
+    return img 
+    
 def serve_pil_image(pil_img, ext):
     """ serve a PIL image file as a flask response
     

@@ -8,10 +8,11 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 </head>
-<body>
+<body onload="setup()">
     <div>
-        <!--<a href="stitch.html">Image Stitching</a>-->
-        <h1 id="title">Title here</h1>
+        <a href="share.html">Image Sharing</a>
+        
+        <h1 id="title">Image Editor</h1>
         <form id="upload-file" method="post" enctype="multipart/form-data">
             <label for="file">Select a file</label>
             <input id="upload-file-input" name="file" type="file">
@@ -20,10 +21,12 @@
         <div id="dropdown-wrapper">
             <select id="image-ops">
                 <option value="filter-grayscale" selected="selected">Grayscale</option>
-                <option value="filter-black-white" >Black and White</option>
+                <option value="filter-black-white-median" >Black and White (Median)</option>
+                <option value="filter-black-white-otsu" >Black and White (Otsu's)</option>
                 <option value="filter-two-color">Two Colors</option>
                 <option value="filter-canny">Canny Edge Detector</option>
                 <option value="filter-sobel">Sobel Filter</option>
+                <option value="filter-bilateral">Bilateral Filter</option>
                 <option value="enhance-brightness">Enhance Brightness</option>
                 <option value="enhance-contrast">Enhance Contrast</option>
                 <option value="enhance-sharpness">Enhance Sharpness</option>
@@ -33,6 +36,8 @@
                 <option value="fil-green">Blue-Green</option>
                 <option value="fil-noise1">Light noise</option>
                 <option value="fil-noise">Noise</option>
+                <option value="quantize-kmeans">Color Quantization (K-means)</option>
+                <option value="quantize-median">Color Quantization (Median-cut)</option>
             </select>
             <div class="slider-container">
                 <input type="range" min="0" max="100" value="50" id="slider">
@@ -42,17 +47,25 @@
         
         <div id="preview-block">
             <div class="preview-image-div">
-                <img id="upload-preview" src="#" alt="uploaded image">
+                <img id="upload-preview">
             </div>
             <div class="preview-image-div">
-                <img id="result-preview" src="#" alt="processed image">
+                <img id="result-preview">
+                <!--
+                <div id="toggle-ops">
+                    <button id="undo-btn">Undo</button>
+                    <button id="redo-btn">Redo</button>
+                </div>
+                -->
             </div>
         </div> 
         <div id="footer">
             <a id="download-button">Download Processed Image</a>
+            <button id="share-button">Share Image</button>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/utils.js"></script>
     <script type="text/javascript" src="/js/index.js"></script>
 </body>
 </html>
