@@ -3,6 +3,8 @@ Primary Flask app
 
 """
 import os
+from io import BytesIO
+import base64
 from flask import Flask, render_template, request
 from flask_cors import CORS
 
@@ -151,10 +153,10 @@ def fetch_all_images():
 
     for image in images:
         if image.name[-3:] == 'jpg':
-            image.download_to_filename(os.path.join(os.getcwd(), image.name))
-            print(os.path.join(os.getcwd(), image.name))
-            img = Image.open(image.name)
+            buf = image.download_as_string()
+            img = Image.open(BytesIO(buf))
             width, height = img.size
+            print(image.name)
             if max(width, height) > 800:
                 factor = max(width, height)/800
                 img.resize((int(width/factor), int(height/factor)))
