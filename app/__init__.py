@@ -196,6 +196,7 @@ def recieve_single_file():
     print('File extension', file_extention)
 
     with Image.open(uploaded_file.stream) as img:
+        print(image_op)
         # process PIL image (plugin processing functions here)
         if len(application.cache[sess_id]) == 0:  # original image
             application.cache[sess_id].append(img)
