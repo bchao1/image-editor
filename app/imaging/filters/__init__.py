@@ -13,9 +13,6 @@ def guided_filter(img, r = 4, eps = 0.05):
     I = np.array(img)/256
     p = np.array(img)/256
 
-    print(I.shape)
-    print(p.shape)
-
     mean_I  = box_filter(I  , r)
     mean_p  = box_filter(p  , r)
     corr_II = box_filter(I*I, r)
@@ -31,7 +28,6 @@ def guided_filter(img, r = 4, eps = 0.05):
     mean_b = box_filter(b, r)
 
     q = mean_a * I + mean_b
-    print(q.shape)
     return Image.fromarray((q * 256).astype(np.uint8))
 
 def to_gray(img):
