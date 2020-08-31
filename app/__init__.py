@@ -102,6 +102,11 @@ def recieve_share_image():
     # SAVE THIS IMAGE
     img = b64ToImage(b64str)  # return PIL image
     img_name = f'{img_id}.jpg'
+    width, height = img.size
+    if max(width, height) > 800:
+        factor = max(width, height)/800
+        img = img.resize((int(width/factor), int(height/factor)))
+    
     img.save(img_name, 'jpeg')
     upload(BUCKET_NAME, os.path.join(os.getcwd(), img_name), f'Images/{img_name}')
     os.remove(img_name)
@@ -156,10 +161,7 @@ def fetch_all_images():
             buf = image.download_as_string()
             img = Image.open(BytesIO(buf))
             width, height = img.size
-            print(image.name)
-            if max(width, height) > 800:
-                factor = max(width, height)/800
-                img.resize((int(width/factor), int(height/factor)))
+            #print(image.name)
             b64_str = serve_pil_image(img, 'jpeg').decode()
             ret['img'][image.name] = b64_str
             ret['ext'][image.name] = 'jpg'
@@ -167,7 +169,7 @@ def fetch_all_images():
                 ret['likes'][image.name] = likes_data[image.name]
             else:
                 ret['likes'][image.name] = 0
-            print(image.name, ret['likes'][image.name])
+            #print(image.name, ret['likes'][image.name])
 
     return ret, 200
 
@@ -194,7 +196,7 @@ def recieve_single_file():
     print('File received', uploaded_file.filename)
     print('File extension', file_extention)
 
-    with Image.open(uploaded_file.stream) as img:
+    with Image.open(uploaded_file.stream).convert('RGB') as img:
         # process PIL image (plugin processing functions here)
         if len(application.cache[sess_id]) == 0:  # original image
             application.cache[sess_id].append(img)

@@ -6,5 +6,6 @@ gunicorn==20.0.4
 Pillow
 scipy
 scikit-image
+opencv-python
 google-cloud-datastore
 google-cloud-storage

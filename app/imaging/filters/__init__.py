@@ -1,10 +1,34 @@
-from PIL import Image
+from PIL import Image, ImageFilter
+import cv2
 import numpy as np 
 from scipy import ndimage
 from skimage import feature, filters
 import collections
 from .bilateral import bilateral_filter
 
+def box_filter(I, r):
+    return cv2.blur(I, (2*r + 1, 2*r + 1))
+
+def guided_filter(img, r = 4, eps = 0.05):
+    I = np.array(img)/256
+    p = np.array(img)/256
+
+    mean_I  = box_filter(I  , r)
+    mean_p  = box_filter(p  , r)
+    corr_II = box_filter(I*I, r)
+    corr_Ip = box_filter(I*p, r)
+
+    var_I  = corr_II - mean_I * mean_I
+    cov_Ip = corr_Ip - mean_I * mean_p
+
+    a = cov_Ip / (var_I + eps ** 2)
+    b = mean_p - a * mean_I
+
+    mean_a = box_filter(a, r)
+    mean_b = box_filter(b, r)
+
+    q = mean_a * I + mean_b
+    return Image.fromarray((q * 256).astype(np.uint8))
 
 def to_gray(img):
     gray_img = img.convert('L')
@@ -85,5 +109,6 @@ filter_dict = {
     'filter-sobel': sobel_filter,
     'filter-black-white-otsu': binarize_otsu,
     'filter-black-white-median': binarize_median,
-    'filter-bilateral': bilateral_filter
+    'filter-bilateral': bilateral_filter,
+    'filter-guided': guided_filter
 }
